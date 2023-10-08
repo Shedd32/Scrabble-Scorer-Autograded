@@ -42,11 +42,11 @@ function initialPrompt(word) {
 console.log(oldScrabbleScorer(initialPrompt()));
 
 
-let simpleScorer;
-/*const simpleScorerPoints = {
+let simpleScorer= {simpleScoreFunc};
+const simpleScorerPoints = {
    1:[A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, U, V, X, Y, Z]
 }
-function simpleScorer(word){
+function simpleScoreFunc(word){
    word = word.toUpperCase();
 	let letterPoints = "";
  
@@ -57,13 +57,33 @@ function simpleScorer(word){
 		 if (simpleScorerPoints[pointValue].includes(word[i])) {
 			letterPoints += `Points for '${word[i]}': ${pointValue}\n`
 		 }
- 
-	  }
 	}
 	return letterPoints;
-}*/
+}
+}
 
-let vowelBonusScorer;
+
+let vowelBonusScorer= {vowelBonusFunc};
+const vowelBonusPoints ={
+   1: [B, C, D, F, G, H, J, K, L, M, N, P, Q, R, S, T, V, W, X, Y, Z]
+   3: [A, E, I, O, U]
+}
+function vowelBonusFunc(word){
+   word = word.toUpperCase();
+   let points = "";
+   for (let i = 0; i < word.length; i++) {
+ 
+      for (const pointValue in vowelBonusScorer) {
+  
+        if (vowelBonusScorer[pointValue].includes(word[i])) {
+          letterPoints += `Points for '${word[i]}': ${pointValue}\n`
+        }
+  
+      }
+    }
+    return letterPoints;
+ }
+
 
 let scrabbleScorer;
 
