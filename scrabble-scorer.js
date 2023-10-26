@@ -58,7 +58,7 @@ const vowelBonusPoints ={
 function vowelBonusScorer(word){
    word = word.toUpperCase();
    let letterPoints = [];
-   let sum = 0
+   let sum = 0;
 
    for (let i = 0; i < word.length; i++) {
  
@@ -78,7 +78,15 @@ function vowelBonusScorer(word){
 
 
 
-let scrabbleScorer= oldScrabbleScorer;
+let scrabbleScorer= function (word){
+   let sum = 0;
+
+   for (let i = 0; i < word.length; i ++){
+      sum += newPointStructure[word[i].toLowerCase()]
+   }
+    return sum;
+   
+}
 
 
 const scoringAlgorithms = [
@@ -112,26 +120,33 @@ function scorerPrompt()  {
 
 
 
-function transform() {
+function transform(oldPointStructure) {
    let newPoints= {}
-   let newKey= "";
 
-   for (keys in oldPointStructure) {
-      
-   for (let i = 0; i < oldPointStructure.length; i++) {
-      newKey += `${oldPointStructure[keys][i]}:`;
-      newKey.toLowerCase();
-     // newPoints.push(newKey);
-   }
-   }return newPoints;
+   for (let keys in oldPointStructure) {
+   let newKey= oldPointStructure[keys];
+  
+       for (let i = 0; i < newKey.length; i++) {
+       newPoints[newKey[i].toLowerCase()] = Number(keys)
+       
+       };
+       
+       
+   };
+   return newPoints;
+ 
+   
 };
 
-let newPointStructure;
+
+
+let newPointStructure= transform(oldPointStructure);
 
 function runProgram() {
-   initialPrompt();
-   scorerPrompt();
-
+   let word = initialPrompt();
+   let scorer = scorerPrompt().scorerFunction;
+   let score = scorer(word);
+   console.log(`Score for '${word}': ${score}\n`);
 }
 
 // Don't write any code below this line //
